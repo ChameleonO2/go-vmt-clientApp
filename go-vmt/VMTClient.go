@@ -6,6 +6,7 @@ type VMTClient struct {
 	oscClient *osc.Client
 	Trackers  []*VirtualTracker
 	Buttons   []*VirtualButton
+	Driver    *DriverControl
 }
 
 func NewVMTClient(o *osc.Client) *VMTClient {
@@ -13,6 +14,7 @@ func NewVMTClient(o *osc.Client) *VMTClient {
 		oscClient: o,
 		Trackers:  []*VirtualTracker{},
 		Buttons:   []*VirtualButton{},
+		Driver:    &DriverControl{},
 	}
 }
 
@@ -21,6 +23,9 @@ func (c *VMTClient) AddTracker(t *VirtualTracker) {
 }
 func (c *VMTClient) AddButton(b *VirtualButton) {
 	c.Buttons = append(c.Buttons, b)
+}
+func (c *VMTClient) SetDriver(d *DriverControl) {
+	c.Driver = d
 }
 func (c *VMTClient) SendAll() {
 	for _, t := range c.Trackers {
